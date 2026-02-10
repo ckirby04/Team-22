@@ -1,12 +1,12 @@
 import tkinter as tk
 import pygame
-from database import Database
-from game_state import GameState
-from network import NetworkManager
-from music_manager import MusicManager
-from splash_screen import SplashScreen
-from player_entry_screen import PlayerEntryScreen
-from play_action_screen import PlayActionScreen
+from core.database import Database
+from core.game_state import GameState
+from core.network import NetworkManager
+from core.music_manager import MusicManager
+from screens.splash_screen import SplashScreen
+from screens.player_entry_screen import PlayerEntryScreen
+from screens.play_action_screen import PlayActionScreen
 
 
 class PhotonApp:

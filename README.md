@@ -2,6 +2,12 @@
 
 Main software for the Photon Laser Tag system. Provides a GUI for player entry and live game action with real-time scoring, communicating with game equipment via UDP.
 
+## Team Members
+
+| Real Name | GitHub Username |
+|-----------|----------------|
+| Clark Kirby | ckirby04 |
+
 ## Prerequisites
 
 - Debian-based Linux (tested on Debian VM)
@@ -37,16 +43,17 @@ python3 main.py
 
 ## Network Configuration
 
-- **Transmit**: Sends UDP packets to `127.0.0.1:7500`
+- **Transmit**: Sends UDP packets to `127.0.0.1:7500` by default
 - **Receive**: Listens on `0.0.0.0:7501`
 - **Protocol**: Messages are `"int:int"` format (transmitter:target)
 - **Game codes**: 202 = start, 221 = end, 53 = red base, 43 = green base
+- **Changing the network**: On the Player Entry screen, enter a different IP address in the "UDP Network Address" field and click "Set" to broadcast to a different host
 
 ## Testing with Traffic Generator
 
 ```bash
 # In a separate terminal, run the traffic generator
-cd udp_files
+cd tools/udp
 python3 python_trafficgenarator_v2.py
 ```
 
@@ -55,18 +62,23 @@ Enter the equipment IDs that match the players you registered. The traffic gener
 ## File Structure
 
 ```
-main.py                  - App entry point, screen transitions
-settings.py              - Constants, paths, configuration
-game_state.py            - Player dataclass and game state model
-scoring_engine.py        - Scoring logic (tags, friendly fire, base hits)
-database.py              - PostgreSQL queries (psycopg2)
-network.py               - UDP transmit/receive with threading
-music_manager.py         - MP3/WAV playback (pygame)
-splash_screen.py         - 3-second logo display
-player_entry_screen.py   - Player/team entry UI
-play_action_screen.py    - Live game scoreboard, event log, timer
-countdown_display.py     - 30-second pre-game countdown
-install.sh               - Automated Debian dependency installer
+main.py                        - App entry point, screen transitions
+settings.py                    - Constants, paths, configuration
+install.sh                     - Automated Debian dependency installer
+screens/
+  splash_screen.py             - 3-second logo display
+  player_entry_screen.py       - Player/team entry UI
+  play_action_screen.py        - Live game scoreboard, event log, timer
+  countdown_display.py         - 30-second pre-game countdown
+core/
+  game_state.py                - Player dataclass and game state model
+  scoring_engine.py            - Scoring logic (tags, friendly fire, base hits)
+  database.py                  - PostgreSQL queries (psycopg2)
+  network.py                   - UDP transmit/receive with threading
+  music_manager.py             - MP3/WAV playback (pygame)
+assets/                        - Images, sounds, and music
+docs/                          - Reference photos and videos
+tools/                         - Test scripts and UDP utilities
 ```
 
 ## Dependencies

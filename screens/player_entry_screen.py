@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import simpledialog, messagebox
-from game_state import Player
-from settings import MAX_PLAYERS_PER_TEAM, TEAM_RED, TEAM_GREEN, RED_BASE_CODE, GREEN_BASE_CODE
+from core.game_state import Player
+from settings import MAX_PLAYERS_PER_TEAM, TEAM_RED, TEAM_GREEN, RED_BASE_CODE, GREEN_BASE_CODE, UDP_BROADCAST_ADDRESS
 
 
 class PlayerEntryScreen:
@@ -105,6 +105,29 @@ class PlayerEntryScreen:
             id_entry.bind("<Return>", lambda e, idx=i, t=TEAM_GREEN: self._on_id_enter(idx, t))
             id_entry.bind("<Tab>", lambda e, idx=i, t=TEAM_GREEN: self._on_id_enter(idx, t) or "break")
             self.green_entries.append((id_entry, codename_lbl, equip_lbl))
+
+        # Network address selector
+        net_bar = tk.Frame(self.frame, bg="black")
+        net_bar.pack(fill=tk.X, pady=(10, 0), padx=20)
+
+        tk.Label(
+            net_bar, text="UDP Network Address:", font=("Helvetica", 11),
+            fg="white", bg="black",
+        ).pack(side=tk.LEFT, padx=(0, 5))
+
+        self._net_entry = tk.Entry(net_bar, width=18, font=("Helvetica", 11))
+        self._net_entry.insert(0, UDP_BROADCAST_ADDRESS)
+        self._net_entry.pack(side=tk.LEFT, padx=2)
+
+        tk.Button(
+            net_bar, text="Set", font=("Helvetica", 10),
+            command=self._set_network, bg="#333", fg="white",
+        ).pack(side=tk.LEFT, padx=5)
+
+        self._net_status = tk.Label(
+            net_bar, text="", font=("Helvetica", 10), fg="lime", bg="black",
+        )
+        self._net_status.pack(side=tk.LEFT, padx=5)
 
         # Bottom button bar
         btn_bar = tk.Frame(self.frame, bg="black")
@@ -230,6 +253,13 @@ class PlayerEntryScreen:
             return
         self._unbind_keys()
         self.on_start_game()
+
+    def _set_network(self):
+        addr = self._net_entry.get().strip()
+        if not addr:
+            return
+        self.network.set_broadcast_address(addr)
+        self._net_status.config(text=f"Set to {addr}")
 
     def _clear_all(self):
         self.game_state.reset()

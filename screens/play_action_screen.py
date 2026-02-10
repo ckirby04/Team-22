@@ -1,9 +1,9 @@
 import tkinter as tk
 import pygame
 from PIL import Image, ImageTk
-from countdown_display import CountdownDisplay
-from scoring_engine import ScoringEngine
-from music_manager import MUSIC_END_EVENT
+from screens.countdown_display import CountdownDisplay
+from core.scoring_engine import ScoringEngine
+from core.music_manager import MUSIC_END_EVENT
 from settings import (
     GAME_DURATION_SECONDS, GAME_START_CODE, GAME_END_CODE,
     TEAM_RED, TEAM_GREEN, BASE_ICON_PATH,

@@ -4,12 +4,12 @@ import os
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # --- Asset Paths ---
-LOGO_PATH = os.path.join(BASE_DIR, "logo.jpg")
-BASE_ICON_PATH = os.path.join(BASE_DIR, "baseicon.jpg")
-COUNTDOWN_DIR = os.path.join(BASE_DIR, "countdown_images")
-MUSIC_DIR = os.path.join(BASE_DIR, "photon_tracks")
-HELMET_SOUNDS_DIR = os.path.join(BASE_DIR, "helmet-sounds")
-GAME_SOUNDS_DIR = os.path.join(BASE_DIR, "game sounds")
+LOGO_PATH = os.path.join(BASE_DIR, "assets", "images", "logo.jpg")
+BASE_ICON_PATH = os.path.join(BASE_DIR, "assets", "images", "baseicon.jpg")
+COUNTDOWN_DIR = os.path.join(BASE_DIR, "assets", "countdown_images")
+MUSIC_DIR = os.path.join(BASE_DIR, "assets", "music")
+HELMET_SOUNDS_DIR = os.path.join(BASE_DIR, "assets", "sounds", "helmet")
+GAME_SOUNDS_DIR = os.path.join(BASE_DIR, "assets", "sounds", "game")
 
 # --- Database Config ---
 DB_NAME = "photon"
