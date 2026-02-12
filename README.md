@@ -12,7 +12,7 @@ Main software for the Photon Laser Tag system. Provides a GUI for player entry a
 
 - Debian-based Linux (tested on Debian VM)
 - Python 3.8+
-- PostgreSQL with `photon` database and `student` role
+- PostgreSQL with `photon` database and `student` role (pre-configured on the VM)
 - Network access on UDP ports 7500 (transmit) and 7501 (receive)
 
 ## Quick Start
@@ -24,6 +24,20 @@ sudo bash install.sh
 # Launch the application
 python3 main.py
 ```
+
+## Required Software
+
+The install script automatically installs the following. If installing manually, ensure these are present:
+
+| Software | Type | Purpose |
+|----------|------|---------|
+| python3-pip | System | Python package manager |
+| python3-tk | System | Tkinter GUI framework |
+| psycopg2-binary | Python | PostgreSQL database adapter |
+| Pillow | Python | Image loading (JPEG, TIF) |
+| pygame | Python | Audio playback (MP3, WAV) |
+
+PostgreSQL with the `photon` database and `student` role must already be configured on the virtual system.
 
 ## Gameplay
 
@@ -49,16 +63,6 @@ python3 main.py
 - **Game codes**: 202 = start, 221 = end, 53 = red base, 43 = green base
 - **Changing the network**: On the Player Entry screen, enter a different IP address in the "UDP Network Address" field and click "Set" to broadcast to a different host
 
-## Testing with Traffic Generator
-
-```bash
-# In a separate terminal, run the traffic generator
-cd tools/udp
-python3 python_trafficgenarator_v2.py
-```
-
-Enter the equipment IDs that match the players you registered. The traffic generator waits for code 202, then sends random hit events until it receives code 221.
-
 ## File Structure
 
 ```
@@ -78,12 +82,12 @@ core/
   music_manager.py             - MP3/WAV playback (pygame)
 assets/                        - Images, sounds, and music
 docs/                          - Reference photos and videos
-tools/                         - Test scripts and UDP utilities
 ```
 
-## Dependencies
+## Scoring
 
-- **tkinter** - GUI framework
-- **psycopg2-binary** - PostgreSQL adapter
-- **Pillow** - Image loading (JPEG, TIF)
-- **pygame** - Audio playback (MP3, WAV)
+| Event | Points |
+|-------|--------|
+| Tag an opponent | +10 |
+| Friendly fire (both players) | -10 each |
+| Hit enemy base (codes 53/43) | +100 |
